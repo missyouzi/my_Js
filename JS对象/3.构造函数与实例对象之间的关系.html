@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+<script>
+// 先有构造函数,再去实例化对象,实例对象是通过构造函数来创建的
+// 自定义构造函数是一种数据类型
+// 面向对象的思想是---->抽象的过程---->实例化的过程
+
+
+
+
+
+function MyObj(name, age) {
+  this.name = name
+  this.age = age
+  this.eat = function () {
+    console.log('eat3方法')
+    console.log('--this--', this) // MyObj本身
+  }
+}
+
+let obj3 = new MyObj('cc3', 24)
+console.dir(obj3)
+console.dir(obj3 === MyObj) // false
+console.log(obj3.constructor === MyObj) // true, 这句话的意思是实例对象obj3的构造函数时MyObj
+console.log(obj3.constructor === MyObj.prototype.constructor) // true
+console.log(obj3 instanceof MyObj) // true
+
+
+
+
+
+
+// 总结：
+// 实例对象和构造函数之间的关系：
+// 1.实例对象是通过构造函数来创建的--创建的过程叫做实例化
+// 2.如何判断对象是不是这个数据类型?
+//   (1)通过构造器的方式： 实例对象.构造器 === 构造函数的名字
+//   (2)instanceof的方式：对象 inatanceof 构造函数的名字
+//   注意尽可能的使用第(2)种方式来识别，为什么？原型讲完再说。
+</script>
+</html>

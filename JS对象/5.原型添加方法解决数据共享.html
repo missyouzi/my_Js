@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+</body>
+<script>
+// 需要共享的数据写在原型中，不需要共享的数据写在构造函数中（方法和属性都可以共享）
+function MyObj(name, age) {
+this.name = name
+this.age = age
+}
+MyObj.prototype.eat = function () {
+  console.log('eat方法')
+}
+let obj1 = new MyObj('cc1', 24)
+let obj2 = new MyObj('cc2', 24)
+console.log(obj1.eat === obj2.eat) // true
+console.dir(obj1)
+
+console.log(obj1.constructor === MyObj) // true, 这句话的意思是实例对象obj1的构造函数是MyObj
+// 可扩展为以下两个（原则，遇到方法和constructor，__proto__可以不写）
+// console.log(obj1.__proto__.constructor === MyObj) // true 实例对象obj1的构造函数是MyObj
+// console.log(obj1.constructor === obj1.__proto__.constructor) // true
+
+console.log(obj1.__proto__ === MyObj.prototype) // true 
+// 可扩展为以下两个（原则，遇到方法和constructor，__proto__可以不写）
+// console.log(obj1.constructor === MyObj.prototype.constructor) // true
+// console.log(obj1.__proto__.constructor === MyObj.prototype.constructor) // true
+
+console.log(MyObj === MyObj.prototype.constructor) // true 原型对象的conatructor构造器指向构造函数本身
+console.log(obj1 instanceof MyObj) // true
+
+obj1.eat() // 输出eat方法
+obj1.__proto__.eat() // 输出eat方法，应该写成这种写法更好理解，但是因为一些浏览器不支持__proto__，所以把obj1.__proto__.eat()写成obj1.eat()
+
+
+
+
+
+
+// 实例对象中有一个属性: __proto__ 也是对象，叫原型，但不是标准的属性（因为有的浏览器不支持__proto__），是浏览器使用的
+// 构造函数中有一个属性: prototype，也是对象，叫原型，是标准属性，是程序员使用的
+// 原型---->__proto__或者prototype
+
+// 构造器MyObj   !=   实例对象obj1
+// 构造器的原型MyObj.prototype   ===   实例对象的原型obj1.__proto__
+// 构造器的原型对象的构造器MyObj.prototype.constructor    ===   实例对象的原型的构造器obj1.__proto__.constructor(同obj1.constructor)
+
+
+
+
+
+
+
+// 总结：三句一原则！！！！！！
+// 1.obj1.constructor === MyObj // true, 这句话的意思是实例对象obj1的构造函数是MyObj
+// 2.obj1.__proto__ === MyObj.prototype  // true 
+// 3.MyObj === MyObj.prototype.constructor  // true 原型对象的conatructor构造器指向构造函数本身
+// 原则：遇到方法和constructor，实力属性__proto__可以不写
+</script>
+</html>

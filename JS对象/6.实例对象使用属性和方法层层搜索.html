@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+</body>
+<script>
+  function Person (age, sex) {
+    this.age = age
+    this.sex = sex
+    this.eat = function (){
+      console.log('eat方法')
+    }
+  }
+  Person.prototype.sex= "女"
+  
+  let per = new Person(20, '男')
+  console.log(per.sex) // 输出男，为啥输出男而不输出女？
+  console.dir(per)
+
+
+
+
+
+  // 实例对象使用的属性或者方法，先在实例中查找，找到了则直接使用，
+  // 找不到则去实例对象的__proto__指向的原型对象prototype中找，
+  // 找到了则直接使用，找不到则报错
+</script>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <input type="button" value="显示效果" id="btn">
+  <div id="dv"></div>
+</body>
+<script>
+function my$(eleId){
+  return document.getElementById(eleId)
+}
+// 面向对象的思想---初级的
+// 按钮是一个对象，div是一个对象，颜色是一个属性
+function ChangeStyle(btnObj, dvObj, json) {
+  this.btnObj = btnObj
+  this.dvObj = dvObj
+  this.json = json
+}
+ChangeStyle.prototype.init = function() {
+  let that = this
+  this.btnObj.onclick = function() {
+    for(let key in that.json){
+      that.dvObj.style[key] = that.json[key]
+    }
+  }
+}
+let json = {"width": "300px", "height": "200px", "backgroundColor": "#ccc"}
+// 实例化对象
+let cc = new ChangeStyle(my$('btn'), my$('dv'), json)
+console.log('cc',cc)
+cc.init()
+</script>
+</html>
