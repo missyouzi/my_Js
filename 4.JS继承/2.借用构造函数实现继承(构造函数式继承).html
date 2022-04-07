@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+</body>
+<script>
+  // 借用构造函数继承，直接调用父级的构造函数的方式来为属性赋值
+  function Person(name, sex, age) {
+    this.name = name
+    this.sex = sex
+    this.age = age
+    this.book = ['book1', 'book2']
+  }
+  Person.prototype.eat = function() {
+    console.log('eat方法')
+  }
+  Person.prototype.sleep = function() {
+    console.log('sleep方法')
+  }
+  Person.prototype.play = function() {
+    console.log('play方法')
+  }
+
+  function Student(name, sex, age, score){
+    // 借用构造函数
+    // 这句是构造函数继承的精华，由于call这个方法可以更改函数的作用域，因此在子类中，对Person调用这个方法就是将子类中的变量在父类中执行一遍
+    // 由于父类中是给this绑定属性的，因此子类自然也就继承了父类的共有属性。
+    // 由于这种类型的继承没有涉及原型prototype，所以父类的原型方法自然不会被子类继承，
+    // 而如果想要被子类继承就必须要放在构造函数中，这样创建出来的每个实例都会单独拥有一份而不能共用，这就违背了代码复用的原则。
+    // 为了综合这两种模式的有点，就有了组合继承
+    Person.call(this, name, sex, age)
+    this.score = score
+  }
+  Student.prototype.study = function() {
+    console.log('study方法')
+  }
+  let stu1 = new Student('cc1','男', 24, 80)
+  let stu2 = new Student('cc2','男', 24, 90)
+  // console.dir(stu1)
+  // console.log(stu1.name, stu1.sex, stu1.age, stu1.score)
+  // stu1.eat()  //stu1.eat is not a function, 说明父类级别中的方法不能继承
+  console.log(stu1.book) // ["book1", "book2"]
+  stu1.book.push('JS设计模式')
+  console.log(stu1.book) //  ["book1", "book2", "JS设计模式"] 
+  console.log(stu2.book) // ["book1", "book2"]  // 解决了类式继承的缺陷2
+
+
+
+
+  // 借用构造函数继承，解决了属性继承和通过原型继承出现的值重复的问题
+  // 缺陷是父类级别中的方法不能继承
+  // 解决方案：组合继承
+</script>
+</html>

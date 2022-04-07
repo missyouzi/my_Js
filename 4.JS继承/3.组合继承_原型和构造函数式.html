@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+</body>
+<script>
+  function Person(name, sex, age) {
+    this.name = name
+    this.sex = sex
+    this.age = age
+    this.book = ['book1', 'book2']
+  }
+  Person.prototype.eat = function() {
+    console.log('eat方法')
+  }
+  Person.prototype.sleep = function() {
+    console.log('sleep方法')
+  }
+  Person.prototype.play = function() {
+    console.log('play方法')
+  }
+
+  function Student(name, sex, age, score){
+    // 借用构造函数
+    Person.call(this, name, sex, age)
+    this.score = score
+  }
+
+  // 改变原型指向
+  Student.prototype = new Person()  // 这里不传值，注意和类式继承的区别
+
+  Student.prototype.study = function() {
+    console.log('study方法')
+  }
+
+  let stu1 = new Student('cc1','男', 24, 80)
+  let stu2 = new Student('cc2','男', 24, 90)
+  console.dir(stu1)
+  console.log(stu1.name, stu1.sex, stu1.age, stu1.score)
+  stu1.eat()
+  stu1.study()
+  console.log('-----------------------------------------')
+  console.dir(stu2)
+  console.log(stu2.name, stu2.sex, stu2.age, stu2.score)
+  stu2.eat()
+  stu2.study()
+  console.log('-----------------------------------------')
+  console.log(stu1.book) // ["book1", "book2"]
+  stu1.book.push('JS设计模式')
+  console.log(stu1.book) // ["book1", "book2", "JS设计模式"]
+  console.log(stu2.book) // ["book1", "book2"]
+
+  // 组合继承的问题：子类不是父类的实例，而子类的原型式父类的实例
+  // 解决方案：继承组合式继承
+</script>
+</html>

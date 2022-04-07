@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+</body>
+<script>
+  // (function () {
+  //   var num = 10; //局部变量
+  // })();
+  // console.log(num) // 报错，num is not defined
+
+
+
+  // 代码运行有问题
+// console.log(window)
+// (function (window) {
+//   function Random() {}
+//   Random.prototype.getRandom = function (min, max) {
+//     return Math.floor(Math.random()*(max-min)+min)
+//   }
+//   window.Random = Random
+// })(window);
+
+// let rm = new Random()
+// console.loh(rm.getRandom(0,5))
+
+(function(){
+  console.log('11111111111')
+})()
+
+</script>
+</html>

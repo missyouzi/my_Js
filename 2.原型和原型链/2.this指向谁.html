@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+</body>
+<script>
+  // 构造函数中的this就是实例对象
+  // 原型对象方法中的this就是实例对象
+  function Person(age) {
+    this.age = age
+    console.log('构造函数中的this:',this)
+  }
+  Person.prototype.eat = function () {
+    console.log('原型对象方法中的this', this)
+  }
+  let per = new Person(24)
+  per.eat()
+  console.dir(per) // 实例对象per
+  console.log(Person) // 是个函数
+  // L16, L19, L22打印出来的东西一样，都是实例对象
+  console.log( Object.getPrototypeOf(per) === per.__proto__ ) // true
+</script>
+</html>

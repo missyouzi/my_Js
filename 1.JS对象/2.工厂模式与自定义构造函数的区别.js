@@ -1,4 +1,4 @@
-// 1.自定义构造函数创建对象(首字母大写)
+// 1.自定义构造函数创建对象(首字母大写)（优化后的工厂模式）
 function MyObj(name, age) {
   this.name = name
   this.age = age

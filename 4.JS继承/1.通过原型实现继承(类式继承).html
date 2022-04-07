@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+</body>
+<script>
+  // 通过原型继承----改变子类的原型指向
+  // 实例：Person和Student
+  // Person： 姓名，性别，年龄，      吃饭，睡觉，玩
+  // Student：姓名，性别，年龄，成绩， 吃饭，睡觉，玩， 学习的行为
+  // Student属性和行为与Person有很多重复的，可以继承Person的
+  function Person(name, sex, age) {
+    this.name = name
+    this.sex = sex
+    this.age = age
+    this.book = ['book1', 'book2']
+  }
+  Person.prototype.eat = function() {
+    console.log('eat方法')
+  }
+  Person.prototype.sleep = function() {
+    console.log('sleep方法')
+  }
+  Person.prototype.play = function() {
+    console.log('play方法')
+  }
+
+
+  // function Student(name, sex, age, score) {
+  //   this.name = name
+  //   this.sex = sex
+  //   this.age = age
+  //   this.score = score
+  // }
+  // Student.prototype.eat = function() {
+  //   console.log('eat方法')
+  // }
+  // Student.prototype.sleep = function() {
+  //   console.log('sleep方法')
+  // }
+  // Student.prototype.play = function() {
+  //   console.log('play方法')
+  // }
+  // Student.prototype.study = function() {
+  //   console.log('study方法')
+  // }
+
+  // 上面代码有很大重复性，我们修改一下：
+  function Student(score) {
+    this.score = score
+  }
+  Student.prototype = new Person('白白', '男', 24) // 缺陷1
+  Student.prototype.study = function() {
+    console.log('study方法')
+  }
+  
+  let stu1 = new Student(80)
+  let stu2 = new Student(90)
+  // console.dir(stu1)
+  // stu1.eat()
+  // stu1.study()
+  console.log(stu1.book) //  ["book1", "book2"]
+  stu1.book.push('JS设计模式')
+  console.log(stu1.book) //  ["book1", "book2", "JS设计模式"]
+  console.log(stu2.book) //  ["book1", "book2", "JS设计模式"]  缺陷2，stu2实例的book也变化了
+
+
+
+  // 通过原型继承（张容铭JS设计模式中把通过原型实现继承成为类式继承）需要将第一个类的实例赋值给第二个类的原型。为什么？
+  // 类的原型对象的作用就是为类的亚宁添加共有方法，但是类不能访问这些属性和方法，必须通过原型prototype来访问。
+  // 当我们实例化一个父类的时候，新创建的对象复制了父类的构造函数内的属性和方法并且将原型__proto__指向了父类的原型对象，这样就拥有了父类的原型对象上的方法和属性
+  // 并且这个新创建的对象可直接访问到父类原型对象上的属性与方法。
+  // 如果我们将这个新创建的对象赋值给子类的原型，那么子类的原型就可以访问到父类的原型属性和方法，也可以访问从父类构造函数中复制的属性和方法
+
+
+
+
+
+
+// 这里有个问题：
+// 为了数据共享，改变原型指向，做到了继承--通过改变原型指向实现的继承
+// 缺陷1：因为改变原型指向的同时实现继承，直接初始化了属性，继承过来的属性的值都是一样的了
+// (在案例中stu1和stu2只有score可以定制化，其他属性在Student.prototype = new Person('白白', '男', 24)都固定了，不能定制化)，所以，这就是问题。
+// 缺陷2：由于子类通过其原型prototype对父类实例化，继承了父类。所以说父类中的共有属性要是引用类型，就会在子类中被所有实例共用
+// 解决方法是：
+// 继承的时候，不用改变原型的指向，直接调用父级的构造函数的方式来为属性赋值就可以了--这种方式称为借用构造函数（把要继承的父级的构造函数拿过来，使用一下就可以了）。
+
+
+</script>
+</html>

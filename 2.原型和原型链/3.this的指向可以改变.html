@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+</body>
+<script>
+  function Person(age) {
+    this.age = age
+  }
+  Person.prototype.eat = function () {
+    console.log('Person的eat方法')
+  }
+
+  function Animal(name) {
+    this.name = name
+  }
+  // Animal.prototype.sayHi = function () {
+  //   console.log('Animal的sayHi方法')
+  // }
+  // Animal的原型指向改变了，指向了Person
+  let per = new Person(10)
+  Animal.prototype = per
+
+  Animal.prototype.sayHi = function () {
+    console.log('Animal的sayHi方法')
+  }
+
+  let ani = new Animal('白白')
+  console.dir(ani)
+  console.dir(ani.constructor === Person) // true
+  // console.log(Person.prototype) // 这里不会有sayHi方法，sayHi方法会被添加到new Person(10)这个实例对象中
+  // console.dir(per)
+  // console.log(Animal.prototype)
+  // console.log(ani.age) // 10
+  // console.log(ani.name) // 白白
+  // ani.eat() // 这样就可以直接访问Person的eat方法
+  // ani.sayHi() // 如果先改变Animal原型指向再添加sayHi方法则会报错，因为Animal的原型指向发生了变化。可以在原型指向改变之后载添加方法
+
+
+
+
+
+  // 原型指向可以改变
+  // 实例对象的原型__prototype__指向的是该对象所在的构造函数的原型对象
+  // 构造函数的原型对象prototype指向如果改变了，实例对象的原型__proto__的指向也会改变
+  
+
+  // 实例对象和原型对象之间的关系是通过__proto__原型来联系的，这个关系就是原型链
+
+
+  // 只要Animal.prototype = 对象，就会改变原型指向。如 Animal.prototype = {} 或者 Animal.prototype = new Person(10)
+  
+</script>
+</html>

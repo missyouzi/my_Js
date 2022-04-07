@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+<script>
+  // 原型：
+  // 原型---->__proto__或者prototype
+  // 实例对象中有一个属性: __proto__ 也是对象，叫原型，但不是标准的属性（因为有的浏览器不支持__proto__），是浏览器使用的
+  // 构造函数中有一个属性: prototype，也是对象，叫原型，是标准属性，是程序员使用的
+  // 原型作用：1.数据共享，节省内存空间  2. 实现继承
+
+
+
+
+
+  // 原型链：
+  // 实例对象和原型对象之间的关系是通过__proto__原型来联系的，这个关系就是原型链
+
+
+
+
+
+  // 原型最终指向了哪里？
+  // 原型链最终的指向是Object的prototype中的__proto__是null。
+  // 实例对象中有__proto__原型，构造函数中有prototype原型，
+  // prototype是对象，只要是对象，里面就有__proto__原型（即prototype里面也有__proto__原型），
+  // 只要有__proto__，它就应该指向某个构造函数的原型
+
+
+
+
+
+  function Person(name) {
+    this.name = name
+  }
+
+  let per = new Person('cc')
+  console.dir(per)
+  // 注意等号与箭头含义不一样
+  // per实例对象的__proto__  ===   Person的prototype  ===> (per.__proto__.__proto__) Person.prototype.__proto__  
+  // === Object.prototype ===>   Object.prototype.__proto__(null)
+  console.log(per.__proto__ === Person.prototype) // true
+  console.log(per.__proto__.__proto__ === Person.prototype.__proto__) // true
+  // console.log(Person.prototype === Person.prototype.__proto__) // false
+  console.log(Person.prototype.__proto__ === Object.prototype) // true
+  // console.log(Object.prototype === Object.prototype.__proto__ ) // false
+  console.log(Object.prototype.__proto__) // null
+</script>
+</html>
