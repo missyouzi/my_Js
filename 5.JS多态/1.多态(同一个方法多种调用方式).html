@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 多态：同一个方法多种调用方式
+    // 例子: 定义一个add方法，如果不传参则返回10，如果传一个参数则返回10+参数，如果传两个参数则返回两个参数相加的结果。
+    function Add() {
+      function zero() {
+        return 10;
+      }
+      function one(num) {
+        return 10 + num
+      }
+      function two(num1, num2) {
+        return num1 + num2
+      }
+      this.add = function() {
+        let arg = arguments, len = arg.length
+        switch(len) {
+          case 0:
+            return zero()
+          case 1:
+            return one(arguments[0])
+          case 2:
+            return two(arguments[0], arguments[1])
+          default:
+            return 'default'
+        }
+      }
+    }
+
+    let aa = new Add()
+    console.log(aa.add()) // 10
+    console.log(aa.add(5,)) // 15
+    console.log(aa.add(6,7)) // 13
+  </script>
+</body>
+</html>

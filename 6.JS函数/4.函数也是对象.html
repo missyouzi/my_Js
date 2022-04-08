@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 只要有__proto__就是对象，只要有prototype就是函数。
+    // 而函数中有__prototype__和prototype，所以函数也是对象。但是对象不一定是函数，
+    // 如console.dir(Math)打印出来，里面就没有prototype，所以它不是函数。
+
+
+    // 所有函数实际上都是Function的构造函数创建出来的实例对象
+    // 创建函数的三种方式
+    let f1 = new Function('num1', 'num2', 'return num1+num2')
+    function f2(num1, num2) {
+      return num1 + num2
+    }
+  </script>
+</body>
+</html>

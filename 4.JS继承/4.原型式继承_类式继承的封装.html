@@ -10,6 +10,34 @@
   
 </body>
 <script>
-  // 和类式继承一样，引用类型的属性被共用
+  // 大师的观点：借助原型prototype可以根据已有的对象创建一个新的对象，同时不必创建新的自定义对象类型
+  // 原型式继承是类式继承的封装，其实其中的过渡对象就相当于类式继承中的子类，只不过在原型中作为一个过渡对象出现，目的是为了创建要返回的新的实例化对象
+  // 所以和类式继承一样，原型式继承引用类型的属性也是被共用的
+  // 不过这种方式由于F过渡类的构造函数中没有内容，所以开销比较小，使用起来比较方便
+  // 当然如果你感觉有必要可以将F过渡类缓存起来，不必每次创建一个新的过渡类F。当然这种顾虑也是不必要的。随着这种思想的深入，后来就出现了Object.create()方法
+  function inheritObject(o) {
+    console.log('this:',this)
+    function F() {} // 声明一个过渡函数对象（F相当于类式继承中的子类）
+    F.prototype = o // 过渡对象的原型继承父对象
+    return new F() // 返回过渡对象的一个实例，该实例的原型继承了父对象
+  }
+  let book = { // 相当于类式继承中的父类
+    name:'js book',
+    alike:['book1', 'book2']
+  }
+
+  let newBook1 = inheritObject(book) // 不写new，inheritObject中的this指的是window
+  let newBook2 = inheritObject(book) // 不写new，inheritObject中的this指的是window
+  // newBook1.name = 'newBook1'
+  // newBook1.alike.push('JS设计模式')
+  // console.log(newBook1.name) // newBook1
+  // console.log(newBook2.name) // js book
+  // console.log(newBook1.alike) // ["book1", "book2", "JS设计模式"]
+  // console.log(newBook2.alike) // ["book1", "book2", "JS设计模式"]  // newBook2的alike也被newBook1影响了
+  // // 和类式继承一样，父类对象book中的值类型的属性被复制，引用类型的属性被共用
+
+  let newBook3 = new inheritObject(book) // inheritObject中的this指的是当前对象
+  // console.log(newBook1)
+  // console.log(newBook3)
 </script>
 </html>

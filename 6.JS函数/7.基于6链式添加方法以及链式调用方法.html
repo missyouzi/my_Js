@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 实现1：函数式调用方式
+    Function.prototype.addMethod = function(name, fn) {
+      this[name] = fn
+      return this // 把当前的this对象返回出去
+    }
+    let f3 = function() {}
+    // 链式添加方法
+    f3.addMethod('checkEmail', function(){console.log('checkEmail方法'); return this} )
+      .addMethod('checkName', function(){console.log('checkName方法'); return this} )
+
+    // 函数式调用方式--普通调用
+    // f3.checkEmail() // 打印checkEmail方法
+    // f3.checkName() // 打印checkName方法
+
+    // 函数式调用方式--链式调用，主要是基于添加方法时返回的this
+    f3.checkEmail().checkName()
+
+
+
+
+
+    // 实现1：类式调用方式
+    Function.prototype.addMethod = function(name, fn) {
+      // 与函数式添加区别在这
+      this.prototype[name] = fn
+      return this
+    }
+
+    let f4 = function() {}
+    f4.addMethod('checkEmail', function(){console.log('checkEmail方法22'); return this} )
+      .addMethod('checkName', function(){console.log('checkName方法22'); return this} )
+
+    // 类式调用方式
+    let instance = new f4()
+    instance.checkEmail().checkName()
+  </script>
+</body>
+</html>

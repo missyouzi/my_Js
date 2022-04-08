@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // apply和call的作用:改变this指向
+    function f1(x, y) {
+      console.log("结果是：" + (x+y) + this)
+    }
+
+    f1(10, 20) // 结果是：30[object Window]
+
+    // 我们平时一般使用f1()来调用函数，但是apply和call方法也是函数的调用方式，只不过传参方式和调用方式不同，效果是一样的
+    // 此时的f1实际上是当成对象来使用的，对象可以调用方法
+    // apply和call方法，如果没有传入参数，或者传入的是null，那么调用该方法的函数的对象中的this就是默认的window
+    f1.apply(null,[10, 20]) // 结果是：30[object Window]
+    f1.call(null,10, 20) // 结果是：30[object Window]
+  </script>
+</body>
+</html>

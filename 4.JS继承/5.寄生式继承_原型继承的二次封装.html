@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+</body>
+<script>
+  // 寄生式继承就是对原型式继承的第二次封装，
+  // 并且在这第二次封装的过程中对继承的对象进行了拓展，这样新创建的对象
+  // 不仅仅有父类中的属性和方法而且还添加新的属性和方法
+
+  // 有点像工厂模式创建对象
+  function inheritObject(o) {
+    function F() {} // 声明一个过渡函数对象（F相当于类式继承中的子类）
+    F.prototype = o // 过渡对象的原型继承父对象
+    return new F() // 返回过渡对象的一个实例，该实例的原型继承了父对象
+  }
+
+  // 声明基对象
+  let book = {
+    name:'js book',
+    alike:['book1', 'book2']
+  }
+
+  function createBook(obj) {
+    let o = new inheritObject(obj) // 通过原型式继承的方式创建新对象
+    o.getName = function(){ // 拓展新对象
+      console.log('name:',name)
+    }
+    return o // 返回拓展后的新对象
+  }
+</script>
+</html>

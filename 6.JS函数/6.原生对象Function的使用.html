@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 例子：给每个函数添加checkEmail方法
+
+    // 实现1：
+    // 缺陷：污染了原生对象Function
+    Function.prototype.checkEmail = function() {
+      console.log('checkEmail方法')
+    }
+    
+    let f1 = function(){}
+    f1.checkEmail() // 打印checkEmail方法
+    // 或者使用类的方式
+    let f2 = new Function()
+    f2.checkEmail() // 打印checkEmail方法
+
+
+
+
+
+    // 实现2：
+    // 可以在Function的原型上抽象出一个统一添加方法的功能方法addMethod
+    Function.prototype.addMethod = function(name, fn) {
+      this[name] = fn
+    }
+
+    let f3 = function() {} // 或者let f3 = new Function()
+    f3.addMethod('checkEmail', function(){console.log('checkEmail方法')})
+    f3.checkEmail()  // 打印checkEmail方法
+  </script>
+</body>
+</html>
